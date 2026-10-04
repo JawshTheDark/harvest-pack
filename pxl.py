@@ -2,7 +2,9 @@
 
 Everything is drawn at the final size with no anti-aliasing, so it stays crisp in the game.
 """
-from PIL import Image, ImageDraw
+import math
+
+from PIL import Image, ImageDraw, ImageFilter
 
 OUT = (24, 18, 40)
 
@@ -208,6 +210,20 @@ def outline_around(img, color=OUT, shadow=True):
     return out
 
 
+SS = 4  # shapes are drawn this many times larger, then shrunk, which keeps curves and diagonals clean
+
+
+def _strip(cx, cy, rx, ry, a0, a1, w):
+    """A polygon for a thick elliptical arc from angle a0 to a1 (degrees, clockwise from the right)."""
+    n = max(12, int(abs(a1 - a0) / 4))
+    outer, inner = [], []
+    for k in range(n + 1):
+        a = math.radians(a0 + (a1 - a0) * k / n)
+        outer.append((cx + (rx + w / 2) * math.cos(a), cy + (ry + w / 2) * math.sin(a)))
+        inner.append((cx + (rx - w / 2) * math.cos(a), cy + (ry - w / 2) * math.sin(a)))
+    return outer + inner[::-1]
+
+
 class Cv:
     """A square sprite canvas drawn in unit coordinates (0..1)."""
 
@@ -218,30 +234,50 @@ class Cv:
 
     def _mask(self, prims):
         s = self.s
-        m = Image.new("L", (s, s), 0)
+        S = s * SS
+        m = Image.new("L", (S, S), 0)
         d = ImageDraw.Draw(m)
         for kind, a in prims:
             if kind == "p":
-                d.polygon([(x * s, y * s) for x, y in a], fill=255)
+                d.polygon([(x * S, y * S) for x, y in a], fill=255)
             elif kind == "r":
                 x0, y0, x1, y1 = a
-                d.rectangle([round(x0 * s), round(y0 * s), max(round(x0 * s), round(x1 * s) - 1), max(round(y0 * s), round(y1 * s) - 1)], fill=255)
+                d.rectangle([x0 * S, y0 * S, x1 * S - 1, y1 * S - 1], fill=255)
             elif kind == "e":
                 x0, y0, x1, y1 = a
-                d.ellipse([x0 * s, y0 * s, max(x0 * s, x1 * s - 1), max(y0 * s, y1 * s - 1)], fill=255)
+                d.ellipse([x0 * S, y0 * S, x1 * S - 1, y1 * S - 1], fill=255)
             elif kind == "l":
                 x0, y0, x1, y1, w = a
-                d.line([(x0 * s, y0 * s), (x1 * s, y1 * s)], fill=255, width=max(1, round(w * s)))
+                wd = max(1.0, w * S)
+                d.line([(x0 * S, y0 * S), (x1 * S, y1 * S)], fill=255, width=round(wd))
+                for (px, py) in ((x0, y0), (x1, y1)):
+                    d.ellipse([px * S - wd / 2, py * S - wd / 2, px * S + wd / 2, py * S + wd / 2], fill=255)
             elif kind == "a":
                 x0, y0, x1, y1, a0, a1, w = a
-                d.arc([x0 * s, y0 * s, x1 * s - 1, y1 * s - 1], a0, a1, fill=255, width=max(1, round(w * s)))
+                cx, cy, rx, ry = (x0 + x1) / 2, (y0 + y1) / 2, (x1 - x0) / 2 - w / 2, (y1 - y0) / 2 - w / 2
+                d.polygon([(x * S, y * S) for x, y in _strip(cx, cy, rx, ry, a0, a1, w)], fill=255)
+            elif kind == "A":
+                # a thick arc ending in an arrowhead: (cx, cy, r, from, to, width, head)
+                cx, cy, r, a0, a1, w, head = a
+                step = 1 if a1 >= a0 else -1
+                shaft_end = a1 - step * math.degrees(head * 0.9 / r)
+                d.polygon([(x * S, y * S) for x, y in _strip(cx, cy, r, r, a0, shaft_end, w)], fill=255)
+                ang = math.radians(shaft_end)
+                tx, ty = -math.sin(ang) * step, math.cos(ang) * step
+                bx, by = cx + r * math.cos(ang), cy + r * math.sin(ang)
+                nx, ny = math.cos(ang), math.sin(ang)
+                tip = (bx + tx * head, by + ty * head)
+                d.polygon([(tip[0] * S, tip[1] * S), ((bx + nx * head * 0.62) * S, (by + ny * head * 0.62) * S), ((bx - nx * head * 0.62) * S, (by - ny * head * 0.62) * S)], fill=255)
         return m
 
-    def add(self, color, *prims, shade=True, ol=None):
-        """Draws a part in one colour with a lit top-left edge, a shaded bottom-right edge and
-        (on large sprites) a dark outline between parts."""
+    def add(self, color, *prims, shade=True, ol=None, rnd=False):
+        """Draws a part in one colour. Shading comes from a blurred copy of the shape lit from the
+        top-left and cut into a few flat tones; `rnd` blurs it a lot, so round things look round.
+        On large sprites a dark outline separates the parts."""
         s = self.s
-        mask = self._mask(prims)
+        hi = self._mask(prims)
+        cov = hi.resize((s, s), Image.BOX)
+        mask = cov.point(lambda v: 255 if v >= 104 else 0)
         mp = mask.load()
         op = self.im.load()
         ol = self.inner if ol is None else ol
@@ -256,21 +292,39 @@ class Cv:
                         if 0 <= nx < s and 0 <= ny < s and mp[nx, ny]:
                             op[x, y] = line + (255,)
                             break
-        for y in range(s):
-            for x in range(s):
-                if not mp[x, y]:
-                    continue
-                up = mp[x, y - 1] if y > 0 else 0
-                lf = mp[x - 1, y] if x > 0 else 0
-                dn = mp[x, y + 1] if y < s - 1 else 0
-                rt = mp[x + 1, y] if x < s - 1 else 0
-                c = color
-                if shade:
-                    if not dn or not rt:
-                        c = mul(color, 0.74)
-                    elif not up or not lf:
-                        c = lit(color, 0.32)
-                op[x, y] = c + (255,)
+        bb = mask.getbbox()
+        if not bb:
+            return self
+        size = min(bb[2] - bb[0], bb[3] - bb[1])
+        radius = max(1.0, min(5.0, size * 0.24)) if rnd else 1.0
+        hp = mask.filter(ImageFilter.GaussianBlur(radius)).load()
+
+        def h(x, y):
+            return hp[min(max(x, 0), s - 1), min(max(y, 0), s - 1)]
+
+        lights = {}
+        top = 1e-6
+        for y in range(bb[1], bb[3]):
+            for x in range(bb[0], bb[2]):
+                if mp[x, y]:
+                    gx = h(x + 1, y) - h(x - 1, y)
+                    gy = h(x, y + 1) - h(x, y - 1)
+                    v = 0.7071 * (gx + gy)
+                    lights[(x, y)] = v
+                    top = max(top, abs(v))
+        for (x, y), v in lights.items():
+            c = color
+            if shade:
+                k = v / top
+                if k > 0.55:
+                    c = lit(color, 0.40)
+                elif k > 0.18:
+                    c = lit(color, 0.18)
+                elif k < -0.55:
+                    c = mul(color, 0.62)
+                elif k < -0.18:
+                    c = mul(color, 0.82)
+            op[x, y] = c + (255,)
         return self
 
     def dots(self, color, pts):
