@@ -1,0 +1,8 @@
+{
+ "pack": {
+  "description": "Harvest menus: pixel-art backgrounds and icons",
+  "min_format": 64,
+  "max_format": 999,
+  "pack_format": 84
+ }
+}

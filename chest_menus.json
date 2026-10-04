@@ -1,0 +1,749 @@
+{
+ "main": {
+  "title": "Harvest",
+  "family": "main",
+  "note": "Pick a menu. Every button runs a command you could also type.",
+  "slots": [
+   {
+    "slot": 20,
+    "name": "Build tools",
+    "tip": "Selections, shapes, brushes, schematics",
+    "cmd": "harvest edit",
+    "close": false,
+    "base": "diamond_axe",
+    "icon": "build"
+   },
+   {
+    "slot": 21,
+    "name": "Shops & auctions",
+    "tip": "Auction house and chest shops",
+    "cmd": "harvest shops",
+    "close": false,
+    "base": "emerald",
+    "icon": "shop"
+   },
+   {
+    "slot": 22,
+    "name": "Money",
+    "tip": "Balance, payments, richest players",
+    "cmd": "harvest eco",
+    "close": false,
+    "base": "gold_ingot",
+    "icon": "coin"
+   },
+   {
+    "slot": 23,
+    "name": "Staff logs",
+    "tip": "Block history and rollbacks (staff)",
+    "cmd": "harvest log",
+    "close": false,
+    "base": "spyglass",
+    "icon": "log"
+   }
+  ],
+  "back": {
+   "name": "Close",
+   "cmd": "harvest close",
+   "close": false
+  }
+ },
+ "edit": {
+  "title": "Build tools",
+  "family": "edit",
+  "note": "Left-click the first corner with the wand, right-click the second.",
+  "slots": [
+   {
+    "slot": 19,
+    "name": "Selection",
+    "tip": "",
+    "cmd": "harvest edit/select",
+    "close": false,
+    "base": "wooden_axe",
+    "icon": "select"
+   },
+   {
+    "slot": 20,
+    "name": "Shapes & fills",
+    "tip": "",
+    "cmd": "harvest edit/shapes",
+    "close": false,
+    "base": "slime_ball",
+    "icon": "shape"
+   },
+   {
+    "slot": 21,
+    "name": "Terrain & nature",
+    "tip": "",
+    "cmd": "harvest edit/terrain",
+    "close": false,
+    "base": "oak_sapling",
+    "icon": "terrain"
+   },
+   {
+    "slot": 22,
+    "name": "Clipboard",
+    "tip": "",
+    "cmd": "harvest edit/clipboard",
+    "close": false,
+    "base": "writable_book",
+    "icon": "clipboard"
+   },
+   {
+    "slot": 23,
+    "name": "Brushes",
+    "tip": "",
+    "cmd": "harvest edit/brush",
+    "close": false,
+    "base": "brush",
+    "icon": "brush"
+   },
+   {
+    "slot": 24,
+    "name": "Tools",
+    "tip": "",
+    "cmd": "harvest edit/tools",
+    "close": false,
+    "base": "stick",
+    "icon": "wand"
+   },
+   {
+    "slot": 28,
+    "name": "Schematics",
+    "tip": "",
+    "cmd": "schem menu",
+    "close": false,
+    "base": "paper",
+    "icon": "scroll"
+   },
+   {
+    "slot": 29,
+    "name": "Get the wand",
+    "tip": "",
+    "cmd": "wand",
+    "close": true,
+    "base": "stick",
+    "icon": "wand"
+   },
+   {
+    "slot": 30,
+    "name": "Undo",
+    "tip": "",
+    "cmd": "undo",
+    "close": true,
+    "base": "arrow",
+    "icon": "undo"
+   },
+   {
+    "slot": 31,
+    "name": "Redo",
+    "tip": "",
+    "cmd": "redo",
+    "close": true,
+    "base": "spectral_arrow",
+    "icon": "redo"
+   },
+   {
+    "slot": 32,
+    "name": "Preview mode",
+    "tip": "Show edits as ghost blocks first; confirm or deny them",
+    "cmd": "preview",
+    "close": true,
+    "base": "ender_eye",
+    "icon": null
+   },
+   {
+    "slot": 33,
+    "name": "Selection outline",
+    "tip": "",
+    "cmd": "drawsel",
+    "close": true,
+    "base": "glass",
+    "icon": "select"
+   }
+  ],
+  "back": {
+   "name": "Back",
+   "cmd": "harvest main",
+   "close": false
+  }
+ },
+ "edit/select": {
+  "title": "Selection",
+  "family": "edit",
+  "note": "Pick a shape, then click: left for the first point, right for the next.",
+  "slots": [
+   {
+    "slot": 19,
+    "name": "Box",
+    "tip": "",
+    "cmd": "sel cuboid",
+    "close": true,
+    "base": "slime_ball",
+    "icon": "shape"
+   },
+   {
+    "slot": 20,
+    "name": "Grow box",
+    "tip": "",
+    "cmd": "sel extend",
+    "close": true,
+    "base": "slime_ball",
+    "icon": "shape"
+   },
+   {
+    "slot": 21,
+    "name": "Polygon",
+    "tip": "",
+    "cmd": "sel poly",
+    "close": true,
+    "base": "slime_ball",
+    "icon": "shape"
+   },
+   {
+    "slot": 22,
+    "name": "Ellipsoid",
+    "tip": "",
+    "cmd": "sel ellipsoid",
+    "close": true,
+    "base": "slime_ball",
+    "icon": "shape"
+   },
+   {
+    "slot": 23,
+    "name": "Sphere",
+    "tip": "",
+    "cmd": "sel sphere",
+    "close": true,
+    "base": "slime_ball",
+    "icon": "shape"
+   },
+   {
+    "slot": 24,
+    "name": "Cylinder",
+    "tip": "",
+    "cmd": "sel cyl",
+    "close": true,
+    "base": "slime_ball",
+    "icon": "shape"
+   },
+   {
+    "slot": 29,
+    "name": "Convex shape",
+    "tip": "",
+    "cmd": "sel convex",
+    "close": true,
+    "base": "slime_ball",
+    "icon": "shape"
+   },
+   {
+    "slot": 30,
+    "name": "This chunk",
+    "tip": "",
+    "cmd": "chunk",
+    "close": true,
+    "base": "paper",
+    "icon": null
+   },
+   {
+    "slot": 31,
+    "name": "Show size",
+    "tip": "",
+    "cmd": "size",
+    "close": true,
+    "base": "book",
+    "icon": "info"
+   },
+   {
+    "slot": 32,
+    "name": "Clear selection",
+    "tip": "",
+    "cmd": "desel",
+    "close": true,
+    "base": "wooden_axe",
+    "icon": "select"
+   },
+   {
+    "slot": 33,
+    "name": "Fill in a form",
+    "tip": "Options that need a number or block name",
+    "cmd": "harvest edit/select form",
+    "close": false,
+    "base": "writable_book",
+    "icon": "form"
+   }
+  ],
+  "back": {
+   "name": "Back",
+   "cmd": "harvest edit",
+   "close": false
+  }
+ },
+ "edit/terrain": {
+  "title": "Terrain & nature",
+  "family": "edit",
+  "note": "These work in a circle around you, or in your selection where noted.",
+  "slots": [
+   {
+    "slot": 19,
+    "name": "Naturalize selection",
+    "tip": "",
+    "cmd": "naturalize",
+    "close": true,
+    "base": "wooden_axe",
+    "icon": "select"
+   },
+   {
+    "slot": 20,
+    "name": "Flowers in selection",
+    "tip": "",
+    "cmd": "flora 10",
+    "close": true,
+    "base": "wooden_axe",
+    "icon": "select"
+   },
+   {
+    "slot": 21,
+    "name": "Clear above me",
+    "tip": "",
+    "cmd": "removeabove",
+    "close": true,
+    "base": "barrier",
+    "icon": null
+   },
+   {
+    "slot": 22,
+    "name": "Clear below me",
+    "tip": "",
+    "cmd": "removebelow",
+    "close": true,
+    "base": "barrier",
+    "icon": null
+   },
+   {
+    "slot": 23,
+    "name": "Regenerate selection",
+    "tip": "Briefly visits an untouched copy of the world",
+    "cmd": "regen",
+    "close": true,
+    "base": "wooden_axe",
+    "icon": "select"
+   },
+   {
+    "slot": 24,
+    "name": "Fill in a form",
+    "tip": "Options that need a number or block name",
+    "cmd": "harvest edit/terrain form",
+    "close": false,
+    "base": "writable_book",
+    "icon": "form"
+   }
+  ],
+  "back": {
+   "name": "Back",
+   "cmd": "harvest edit",
+   "close": false
+  }
+ },
+ "edit/clipboard": {
+  "title": "Clipboard & files",
+  "family": "edit",
+  "note": "Copy your selection, then paste where you stand. Saving writes your clipboard to a file.",
+  "slots": [
+   {
+    "slot": 19,
+    "name": "Copy",
+    "tip": "",
+    "cmd": "copy",
+    "close": true,
+    "base": "writable_book",
+    "icon": "clipboard"
+   },
+   {
+    "slot": 20,
+    "name": "Cut",
+    "tip": "",
+    "cmd": "cut",
+    "close": true,
+    "base": "writable_book",
+    "icon": "clipboard"
+   },
+   {
+    "slot": 21,
+    "name": "Paste",
+    "tip": "",
+    "cmd": "paste",
+    "close": true,
+    "base": "writable_book",
+    "icon": "clipboard"
+   },
+   {
+    "slot": 22,
+    "name": "Paste, skip air",
+    "tip": "",
+    "cmd": "paste -a",
+    "close": true,
+    "base": "writable_book",
+    "icon": "clipboard"
+   },
+   {
+    "slot": 23,
+    "name": "Rotate 90",
+    "tip": "",
+    "cmd": "rot 90",
+    "close": true,
+    "base": "compass",
+    "icon": null
+   },
+   {
+    "slot": 24,
+    "name": "Rotate 180",
+    "tip": "",
+    "cmd": "rot 180",
+    "close": true,
+    "base": "compass",
+    "icon": null
+   },
+   {
+    "slot": 29,
+    "name": "Rotate 270",
+    "tip": "",
+    "cmd": "rot 270",
+    "close": true,
+    "base": "compass",
+    "icon": null
+   },
+   {
+    "slot": 30,
+    "name": "Flip",
+    "tip": "",
+    "cmd": "flip",
+    "close": true,
+    "base": "compass",
+    "icon": null
+   },
+   {
+    "slot": 31,
+    "name": "Clear clipboard",
+    "tip": "",
+    "cmd": "clearclipboard",
+    "close": true,
+    "base": "writable_book",
+    "icon": "clipboard"
+   },
+   {
+    "slot": 32,
+    "name": "Load a file...",
+    "tip": "",
+    "cmd": "schem menu",
+    "close": false,
+    "base": "paper",
+    "icon": "scroll"
+   },
+   {
+    "slot": 33,
+    "name": "Fill in a form",
+    "tip": "Options that need a number or block name",
+    "cmd": "harvest edit/clipboard form",
+    "close": false,
+    "base": "writable_book",
+    "icon": "form"
+   }
+  ],
+  "back": {
+   "name": "Back",
+   "cmd": "harvest edit",
+   "close": false
+  }
+ },
+ "edit/tools": {
+  "title": "Tools",
+  "family": "edit",
+  "note": "Hold the item you want to turn into a tool first.",
+  "slots": [
+   {
+    "slot": 19,
+    "name": "Selection wand",
+    "tip": "",
+    "cmd": "tool selwand",
+    "close": true,
+    "base": "wooden_axe",
+    "icon": "select"
+   },
+   {
+    "slot": 20,
+    "name": "Far wand",
+    "tip": "",
+    "cmd": "tool farwand",
+    "close": true,
+    "base": "stick",
+    "icon": "wand"
+   },
+   {
+    "slot": 21,
+    "name": "Navigation wand",
+    "tip": "",
+    "cmd": "tool navwand",
+    "close": true,
+    "base": "stick",
+    "icon": "wand"
+   },
+   {
+    "slot": 22,
+    "name": "Tree planter",
+    "tip": "",
+    "cmd": "tool tree oak",
+    "close": true,
+    "base": "oak_sapling",
+    "icon": "terrain"
+   },
+   {
+    "slot": 23,
+    "name": "Block cycler",
+    "tip": "",
+    "cmd": "tool cycler",
+    "close": true,
+    "base": "paper",
+    "icon": null
+   },
+   {
+    "slot": 24,
+    "name": "Floating tree remover",
+    "tip": "",
+    "cmd": "tool deltree",
+    "close": true,
+    "base": "barrier",
+    "icon": null
+   },
+   {
+    "slot": 25,
+    "name": "Block info",
+    "tip": "",
+    "cmd": "tool info",
+    "close": true,
+    "base": "paper",
+    "icon": null
+   },
+   {
+    "slot": 28,
+    "name": "Super pickaxe",
+    "tip": "",
+    "cmd": "sp",
+    "close": true,
+    "base": "diamond_pickaxe",
+    "icon": "tool"
+   },
+   {
+    "slot": 29,
+    "name": "Pickaxe: area",
+    "tip": "",
+    "cmd": "sp area 2",
+    "close": true,
+    "base": "diamond_pickaxe",
+    "icon": "tool"
+   },
+   {
+    "slot": 30,
+    "name": "Pickaxe: vein",
+    "tip": "",
+    "cmd": "sp recursive 5",
+    "close": true,
+    "base": "diamond_pickaxe",
+    "icon": "tool"
+   },
+   {
+    "slot": 31,
+    "name": "Wand on/off",
+    "tip": "",
+    "cmd": "toggleeditwand",
+    "close": true,
+    "base": "stick",
+    "icon": "wand"
+   },
+   {
+    "slot": 32,
+    "name": "Remove tool",
+    "tip": "",
+    "cmd": "none",
+    "close": true,
+    "base": "stick",
+    "icon": "wand"
+   },
+   {
+    "slot": 33,
+    "name": "Fill in a form",
+    "tip": "Options that need a number or block name",
+    "cmd": "harvest edit/tools form",
+    "close": false,
+    "base": "writable_book",
+    "icon": "form"
+   }
+  ],
+  "back": {
+   "name": "Back",
+   "cmd": "harvest edit",
+   "close": false
+  }
+ },
+ "shops": {
+  "title": "Shops & auctions",
+  "family": "shops",
+  "note": "Buy and sell with other players.",
+  "slots": [
+   {
+    "slot": 19,
+    "name": "Browse auctions",
+    "tip": "",
+    "cmd": "ah menu",
+    "close": false,
+    "base": "emerald",
+    "icon": "shop"
+   },
+   {
+    "slot": 20,
+    "name": "My listings",
+    "tip": "",
+    "cmd": "ah menu mine",
+    "close": false,
+    "base": "chest",
+    "icon": "shop"
+   },
+   {
+    "slot": 21,
+    "name": "Sell what I hold",
+    "tip": "",
+    "cmd": "harvest shops/sell",
+    "close": false,
+    "base": "gold_nugget",
+    "icon": "coin"
+   },
+   {
+    "slot": 22,
+    "name": "Claim my items",
+    "tip": "",
+    "cmd": "ah claim",
+    "close": true,
+    "base": "chest",
+    "icon": "shop"
+   },
+   {
+    "slot": 23,
+    "name": "My shops",
+    "tip": "",
+    "cmd": "shop list",
+    "close": true,
+    "base": "emerald",
+    "icon": "shop"
+   },
+   {
+    "slot": 24,
+    "name": "How shops work",
+    "tip": "",
+    "cmd": "shop help",
+    "close": true,
+    "base": "emerald",
+    "icon": "shop"
+   }
+  ],
+  "back": {
+   "name": "Back",
+   "cmd": "harvest main",
+   "close": false
+  }
+ },
+ "eco": {
+  "title": "Money",
+  "family": "eco",
+  "note": "",
+  "slots": [
+   {
+    "slot": 21,
+    "name": "My balance",
+    "tip": "",
+    "cmd": "balance",
+    "close": true,
+    "base": "gold_nugget",
+    "icon": "coin"
+   },
+   {
+    "slot": 22,
+    "name": "Richest players",
+    "tip": "",
+    "cmd": "baltop",
+    "close": true,
+    "base": "gold_block",
+    "icon": "crown"
+   },
+   {
+    "slot": 23,
+    "name": "Pay someone",
+    "tip": "",
+    "cmd": "harvest eco/pay",
+    "close": false,
+    "base": "emerald",
+    "icon": "pay"
+   }
+  ],
+  "back": {
+   "name": "Back",
+   "cmd": "harvest main",
+   "close": false
+  }
+ },
+ "log": {
+  "title": "Staff logs",
+  "family": "log",
+  "note": "Staff only. Search words look like u:player t:1h r:20 a:block.",
+  "slots": [
+   {
+    "slot": 20,
+    "name": "Block inspector",
+    "tip": "Click blocks to see their history",
+    "cmd": "hl i",
+    "close": true,
+    "base": "spyglass",
+    "icon": "log"
+   },
+   {
+    "slot": 21,
+    "name": "Changes near me",
+    "tip": "",
+    "cmd": "hl near",
+    "close": true,
+    "base": "spyglass",
+    "icon": "log"
+   },
+   {
+    "slot": 22,
+    "name": "Undo last rollback",
+    "tip": "",
+    "cmd": "hl undo",
+    "close": true,
+    "base": "arrow",
+    "icon": "undo"
+   },
+   {
+    "slot": 23,
+    "name": "Status",
+    "tip": "",
+    "cmd": "hl status",
+    "close": true,
+    "base": "spyglass",
+    "icon": "log"
+   },
+   {
+    "slot": 24,
+    "name": "Fill in a form",
+    "tip": "Options that need a number or block name",
+    "cmd": "harvest log form",
+    "close": false,
+    "base": "writable_book",
+    "icon": "form"
+   }
+  ],
+  "back": {
+   "name": "Back",
+   "cmd": "harvest main",
+   "close": false
+  }
+ }
+}

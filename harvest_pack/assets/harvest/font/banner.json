@@ -1,0 +1,49 @@
+{
+ "providers": [
+  {
+   "type": "bitmap",
+   "file": "harvest:gui/banner_main.png",
+   "ascent": 28,
+   "height": 32,
+   "chars": [
+    "\ue300"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "harvest:gui/banner_edit.png",
+   "ascent": 28,
+   "height": 32,
+   "chars": [
+    "\ue301"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "harvest:gui/banner_shops.png",
+   "ascent": 28,
+   "height": 32,
+   "chars": [
+    "\ue302"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "harvest:gui/banner_eco.png",
+   "ascent": 28,
+   "height": 32,
+   "chars": [
+    "\ue303"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "harvest:gui/banner_log.png",
+   "ascent": 28,
+   "height": 32,
+   "chars": [
+    "\ue304"
+   ]
+  }
+ ]
+}
