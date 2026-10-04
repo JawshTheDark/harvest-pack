@@ -130,21 +130,44 @@ STYLE = {
     "Tree planter": ("sapling", "green", None), "Block cycler": ("cycle", "green", None), "Floating tree remover": ("axe", "red", None),
     "Block info": ("info", "blue", None), "Super pickaxe": ("pickaxe", "slate", None), "Pickaxe: area": ("pickaxe", "orange", "AREA"),
     "Pickaxe: vein": ("pickaxe", "teal", "VEIN"), "Wand on/off": ("gear", "slate", None), "Remove tool": ("close", "red", None),
-    "Browse auctions": ("gavel", "green", None), "My listings": ("chest", "teal", None), "Sell what I hold": ("tag", "gold", None),
+    "Browse auctions": ("gavel", "green", None), "My listings": ("chest", "teal", None), "Sell held item": ("tag", "gold", None),
     "Claim my items": ("gift", "pink", None), "My shops": ("market", "orange", None), "How shops work": ("book", "blue", None),
     "My balance": ("wallet", "gold", None), "Richest players": ("crown", "orange", None), "Pay someone": ("send", "green", None),
     "Block inspector": ("magnifier", "blue", None), "Changes near me": ("radar", "teal", None), "Undo last rollback": ("clock", "violet", None),
     "Status": ("gauge", "green", None),
 }
+# Panels where an item can be dropped: the command that takes it.
+DROP = {"Sell held item": "ah sellform"}
 LABEL = {
     "Build tools": "BUILD TOOLS", "Shops & auctions": "SHOPS", "Money": "MONEY", "Staff logs": "LOGS", "Terra world": "TERRA",
-    "Browse auctions": "AUCTIONS", "Sell what I hold": "SELL", "Naturalize selection": "NATURALIZE", "Regenerate selection": "REGEN",
+    "Browse auctions": "AUCTIONS", "Sell held item": "SELL HELD\nITEM", "Naturalize selection": "NATURALIZE", "Regenerate selection": "REGEN",
     "Block inspector": "INSPECT", "Changes near me": "NEARBY", "My balance": "BALANCE", "Richest players": "RICHEST", "Pay someone": "PAY",
 }
 
 
 def style(name):
     return STYLE.get(name, ("gear", "slate", None))
+
+
+# ---------------------------------------------------------------- banners for the form dialogs
+
+FAMILIES = [("main", "orange", ("builder", "coins")), ("edit", "red", ("pickaxe", "builder")), ("shops", "green", ("market", "gavel")),
+            ("eco", "gold", ("coins", "wallet")), ("log", "blue", ("magnifier", "logbook"))]
+
+
+def build_banners(assets):
+    """The picture across the top of each form dialog (the glyphs U+E300 and up of `harvest:banner`)."""
+    providers = []
+    for i, (family, theme, (left, right)) in enumerate(FAMILIES):
+        img = tile(288, 30, theme, None)
+        for name, x in ((left, 8), (right, 288 - 8 - 26)):
+            sp = sprites.render(name, 22)
+            img.alpha_composite(sp, (x, (30 - sp.height) // 2))
+        path = os.path.join(assets, "textures", "gui", "banner_%s.png" % family)
+        os.makedirs(os.path.dirname(path), exist_ok=True)
+        img.save(path)
+        providers.append({"type": "bitmap", "file": "harvest:gui/banner_%s.png" % family, "ascent": 26, "height": 30, "chars": [chr(0xE300 + i)]})
+    write(os.path.join(assets, "font", "banner.json"), json.dumps({"providers": providers}, indent=1))
 
 
 # ---------------------------------------------------------------- menu assembly
@@ -179,7 +202,10 @@ class Menu:
         sprite, theme, badge = style(entry["name"])
         art = tile(w * 18 - 2, h * 18 - 2, theme, sprite, LABEL.get(entry["name"]) if label is None else label, badge)
         put(self.img, art, c, r, w, h)
-        self.panels.append({"slots": slots_of(c, r, w, h), "name": entry["name"], "tip": entry.get("tip", ""), "cmd": entry["cmd"], "close": entry["close"]})
+        panel = {"slots": slots_of(c, r, w, h), "name": entry["name"], "tip": entry.get("tip", ""), "cmd": entry["cmd"], "close": entry["close"]}
+        if entry["name"] in DROP:
+            panel["drop"] = DROP[entry["name"]]
+        self.panels.append(panel)
 
     def back(self, spec, c=8, r=5):
         close = spec["name"] == "Close"
@@ -254,7 +280,7 @@ LAYOUTS = {
     "edit/clipboard": lay_grid,
     "edit/tools": lay_grid,
     "edit/terrain": lay_dash(["Naturalize selection", "Regenerate selection"]),
-    "shops": lay_dash(["Browse auctions", "Sell what I hold"]),
+    "shops": lay_dash(["Browse auctions", "Sell held item"]),
     "log": lay_dash(["Block inspector", "Changes near me"]),
     "eco": lay_eco,
 }
@@ -277,9 +303,9 @@ def stock_list(kind):
         for i, (n, sp, th) in enumerate(tabs):
             put(m.img, button(th, sp), 0, i)
             named[n] = [i * 9]
-        put(m.img, tile(34, 70, "sky", "market"), 7, 0, 2, 4)
-        put(m.img, tile(34, 34, "gold", "tag", None, None), 7, 4, 2, 2)
-        named["sell"] = slots_of(7, 4, 2, 2)
+        put(m.img, tile(34, 52, "sky", "market"), 7, 0, 2, 3)
+        put(m.img, tile(34, 52, "gold", "tag", "SELL", None), 7, 3, 2, 3)
+        named["sell"] = slots_of(7, 3, 2, 3)
     else:
         put(m.img, tile(34, 70, "blue", "schem"), 7, 0, 2, 4)
         put(m.img, tile(34, 34, "slate", "clipboard", None, None), 7, 4, 2, 2)
@@ -351,6 +377,7 @@ def main():
     spec = json.load(open(SPEC, encoding="utf-8"))
     assets = os.path.join(OUTDIR, "assets", "harvest")
     fonts = build_fonts(assets)
+    build_banners(assets)
 
     providers = [shift_provider()]
     menus = {}

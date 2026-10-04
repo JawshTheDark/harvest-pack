@@ -30,7 +30,7 @@ In `pumpkin.toml`:
 ```toml
 [resource_pack.java]
 enabled = true
-url = "https://github.com/JawshTheDark/harvest-pack/releases/download/v2.0.0/harvest-pack.zip"
+url = "https://github.com/JawshTheDark/harvest-pack/releases/download/v2.1.0/harvest-pack.zip"
 sha1 = "<contents of harvest-pack.sha1>"
 prompt_message = "Harvest menus"
 force = false

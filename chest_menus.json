@@ -618,10 +618,10 @@
    },
    {
     "slot": 21,
-    "name": "Sell what I hold",
-    "tip": "",
-    "cmd": "harvest shops/sell",
-    "close": false,
+    "name": "Sell held item",
+    "tip": "Click to sell the item in your hand, or point here and press 1-9 to sell the item in that hotbar slot",
+    "cmd": "ah sellform",
+    "close": true,
     "base": "gold_nugget",
     "icon": "coin"
    },
