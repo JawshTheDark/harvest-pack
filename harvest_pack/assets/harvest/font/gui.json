@@ -3,171 +3,166 @@
   {
    "type": "space",
    "advances": {
-    "\uf808": -8,
-    "\uf8a9": -169,
-    "\uf801": -1
+    "\uf801": -1,
+    "\uf811": 1,
+    "\uf802": -2,
+    "\uf812": 2,
+    "\uf803": -4,
+    "\uf813": 4,
+    "\uf804": -8,
+    "\uf814": 8,
+    "\uf805": -16,
+    "\uf815": 16,
+    "\uf806": -32,
+    "\uf816": 32,
+    "\uf807": -64,
+    "\uf817": 64,
+    "\uf808": -128,
+    "\uf818": 128
    }
   },
   {
    "type": "bitmap",
-   "file": "harvest:gui/bg_e100.png",
-   "ascent": 13,
-   "height": 222,
+   "file": "harvest:gui/win_e100.png",
+   "ascent": 21,
+   "height": 230,
    "chars": [
     "\ue100"
    ]
   },
   {
    "type": "bitmap",
-   "file": "harvest:gui/bg_e101.png",
-   "ascent": 13,
-   "height": 222,
+   "file": "harvest:gui/win_e101.png",
+   "ascent": 21,
+   "height": 230,
    "chars": [
     "\ue101"
    ]
   },
   {
    "type": "bitmap",
-   "file": "harvest:gui/bg_e102.png",
-   "ascent": 13,
-   "height": 222,
+   "file": "harvest:gui/win_e102.png",
+   "ascent": 21,
+   "height": 230,
    "chars": [
     "\ue102"
    ]
   },
   {
    "type": "bitmap",
-   "file": "harvest:gui/bg_e103.png",
-   "ascent": 13,
-   "height": 222,
+   "file": "harvest:gui/win_e103.png",
+   "ascent": 21,
+   "height": 230,
    "chars": [
     "\ue103"
    ]
   },
   {
    "type": "bitmap",
-   "file": "harvest:gui/bg_e104.png",
-   "ascent": 13,
-   "height": 222,
+   "file": "harvest:gui/win_e104.png",
+   "ascent": 21,
+   "height": 230,
    "chars": [
     "\ue104"
    ]
   },
   {
    "type": "bitmap",
-   "file": "harvest:gui/bg_e105.png",
-   "ascent": 13,
-   "height": 222,
+   "file": "harvest:gui/win_e105.png",
+   "ascent": 21,
+   "height": 230,
    "chars": [
     "\ue105"
    ]
   },
   {
    "type": "bitmap",
-   "file": "harvest:gui/bg_e106.png",
-   "ascent": 13,
-   "height": 222,
+   "file": "harvest:gui/win_e106.png",
+   "ascent": 21,
+   "height": 230,
    "chars": [
     "\ue106"
    ]
   },
   {
    "type": "bitmap",
-   "file": "harvest:gui/bg_e107.png",
-   "ascent": 13,
-   "height": 222,
+   "file": "harvest:gui/win_e107.png",
+   "ascent": 21,
+   "height": 230,
    "chars": [
     "\ue107"
    ]
   },
   {
    "type": "bitmap",
-   "file": "harvest:gui/bg_e108.png",
-   "ascent": 13,
-   "height": 222,
+   "file": "harvest:gui/win_e108.png",
+   "ascent": 21,
+   "height": 230,
    "chars": [
     "\ue108"
    ]
   },
   {
    "type": "bitmap",
-   "file": "harvest:gui/bg_e109.png",
-   "ascent": 13,
-   "height": 222,
+   "file": "harvest:gui/win_e109.png",
+   "ascent": 21,
+   "height": 230,
    "chars": [
     "\ue109"
    ]
   },
   {
    "type": "bitmap",
-   "file": "harvest:gui/bg_e10a.png",
-   "ascent": 13,
-   "height": 222,
+   "file": "harvest:gui/win_e10a.png",
+   "ascent": 21,
+   "height": 230,
    "chars": [
     "\ue10a"
    ]
   },
   {
    "type": "bitmap",
-   "file": "harvest:gui/bg_e10b.png",
-   "ascent": 13,
-   "height": 222,
+   "file": "harvest:gui/win_e10b.png",
+   "ascent": 21,
+   "height": 230,
    "chars": [
     "\ue10b"
    ]
   },
   {
    "type": "bitmap",
-   "file": "harvest:gui/bg_e10c.png",
-   "ascent": 13,
-   "height": 222,
+   "file": "harvest:gui/win_e10c.png",
+   "ascent": 21,
+   "height": 230,
    "chars": [
     "\ue10c"
    ]
   },
   {
    "type": "bitmap",
-   "file": "harvest:gui/bg_e10d.png",
-   "ascent": 13,
-   "height": 222,
+   "file": "harvest:gui/win_e10d.png",
+   "ascent": 21,
+   "height": 230,
    "chars": [
     "\ue10d"
    ]
   },
   {
    "type": "bitmap",
-   "file": "harvest:gui/bg_e10e.png",
-   "ascent": 13,
-   "height": 222,
+   "file": "harvest:gui/win_e10e.png",
+   "ascent": 21,
+   "height": 230,
    "chars": [
     "\ue10e"
    ]
   },
   {
    "type": "bitmap",
-   "file": "harvest:gui/bg_e10f.png",
-   "ascent": 13,
-   "height": 222,
+   "file": "harvest:gui/win_e10f.png",
+   "ascent": 21,
+   "height": 230,
    "chars": [
     "\ue10f"
-   ]
-  },
-  {
-   "type": "bitmap",
-   "file": "harvest:gui/bg_e110.png",
-   "ascent": 13,
-   "height": 222,
-   "chars": [
-    "\ue110"
-   ]
-  },
-  {
-   "type": "bitmap",
-   "file": "harvest:gui/bg_e111.png",
-   "ascent": 13,
-   "height": 222,
-   "chars": [
-    "\ue111"
    ]
   }
  ]

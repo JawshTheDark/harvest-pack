@@ -39,6 +39,15 @@
     "close": false,
     "base": "spyglass",
     "icon": "log"
+   },
+   {
+    "slot": 24,
+    "name": "Terra world",
+    "tip": "Visit the Terra world",
+    "cmd": "terra",
+    "close": true,
+    "base": "paper",
+    "icon": null
    }
   ],
   "back": {
