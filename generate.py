@@ -414,7 +414,7 @@ def main():
     write(os.path.join(assets, "items", "blank.json"), json.dumps({"model": {"type": "minecraft:empty"}}))
     write(os.path.join(OUTDIR, "pack.mcmeta"), json.dumps({
         "pack": {"description": "Harvest menus: illustrated windows and pixel fonts", "min_format": 64, "max_format": 999, "pack_format": 84}}, indent=1))
-    sprites.render("builder", 28).resize((124, 124), Image.NEAREST).save(os.path.join(OUTDIR, "pack.png"))
+    sprites.render("builder", 60).resize((128, 128), Image.NEAREST).save(os.path.join(OUTDIR, "pack.png"))
 
     final = {
         "fonts": fonts,

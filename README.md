@@ -18,10 +18,22 @@ python generate.py
 That writes `harvest_pack/`, `harvest-pack.zip` and `harvest-pack.sha1`, and the menu data the plugins read.
 
 - `pxl.py`: the 5x7 pixel font and the shaded-sprite toolkit.
-- `sprites.py`: about 70 illustrations, drawn in unit coordinates so they work at any size.
+- `art/`: the 61 icons, 32x32 pixel art (see below). `sprites.py` picks them up and only ever enlarges them by whole numbers, so every pixel stays square.
+- `pixart.py`: small hand-drawn fallbacks for any icon that has no PNG in `art/`.
 - `panels.py`: tiles, buttons, the window frame and the title plate.
 - `generate.py`: lays out each menu, writes the pack.
-- **Your own art:** put a PNG named after a sprite in `art/` (for example `art/builder.png`) and it replaces the drawing.
+- **Your own art:** put a PNG named after a sprite in `art/` (for example `art/builder.png`) and it replaces the icon.
+
+## Where the icons come from
+
+The icons were drawn as sheets of pixel-art icons on a magenta background (`sheets/batch1.jpg` to `batch5.jpg`) and cut apart by
+`tools/gemini_import.py`: it finds each icon, reads it back at its true pixel size, shrinks it into a 32x32 tile and snaps it to a
+small palette. `tools/sheets.json` lists the icon names in reading order. To redo it after changing a sheet:
+
+```
+python tools/import_all.py
+python generate.py
+```
 
 ## Use it on a server
 
@@ -30,7 +42,7 @@ In `pumpkin.toml`:
 ```toml
 [resource_pack.java]
 enabled = true
-url = "https://github.com/JawshTheDark/harvest-pack/releases/download/v2.2.0/harvest-pack.zip"
+url = "https://github.com/JawshTheDark/harvest-pack/releases/download/v2.3.0/harvest-pack.zip"
 sha1 = "<contents of harvest-pack.sha1>"
 prompt_message = "Harvest menus"
 force = false

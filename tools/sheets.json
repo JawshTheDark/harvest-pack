@@ -1,0 +1,7 @@
+{
+  "batch1": "builder,market,coins,logbook,-,-,world,terrain,crown,wallet,-,-,gavel,chest,tag,gift,-,-",
+  "batch2": "select,cube,shapes,sphere,expand,ellipsoid,cylinder,pyramid,polygon,-,grid,ruler,dotted,-,-",
+  "batch3": "pickaxe,axe,brush,wand,-,eraser,scissors,clipboard,copy,-,paste,trash,folder,schem,eye",
+  "batch4": "undo,redo,rotate,cycle,-,-,flip+,-,up,down,back,-,-,next,close,info,-,gear,-",
+  "batch5": "magnifier,radar,gauge,-,crystal,clock,flower,tree,sapling,send,-,-,book,form,compass,-,-,-"
+}

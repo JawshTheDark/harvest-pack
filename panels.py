@@ -87,17 +87,17 @@ def tile(w, h, theme, sprite=None, label=None, badge=None):
                 px[x, y] = lit(px[x, y][:3], 0.07) + (255,)
     side = bool(label) and w >= h * 1.6 and h <= 40
     lines = label.split("\n") if label else []
-    lab_h = (3 + 8 * len(lines)) if label and not side else 0
+    lab_h = (2 + 8 * len(lines)) if label and not side else 0
     glow(img, w / 2 if not side else h / 2, (h - lab_h) / 2, min(w, h) * 0.55, lit(top, 0.65), 0.55)
     text_x = None
     if sprite:
         if side:
-            spr = sprites.render(sprite, max(8, h - 6 - 4))
+            spr = sprites.render(sprite, h - 2 - 4)
             img.alpha_composite(spr, (3, (h - spr.height) // 2))
             text_x = 3 + spr.width
         else:
-            avail = min(w - 6, h - 6 - lab_h)
-            spr = sprites.render(sprite, max(8, avail - 4))
+            avail = min(w - 2, h - lab_h)
+            spr = sprites.render(sprite, avail - 4)
             img.alpha_composite(spr, ((w - spr.width) // 2, (h - lab_h - spr.height) // 2 + 1))
     if label and side:
         x0 = text_x or 3
